@@ -1,0 +1,513 @@
+/* Shared primitives. Concepts restyle them through their own custom properties. */
+
+.concept {
+  overflow-x: clip;
+  min-height: 100vh;
+}
+
+/* Media frame: reserved space, placeholder tone, decoded image fades in. */
+.media {
+  position: relative;
+  overflow: hidden;
+  background: var(--media-placeholder, #dfe5dc);
+  border-radius: var(--radius-media, 16px);
+  isolation: isolate;
+}
+
+.media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--media-position, 50% 50%);
+}
+
+.progressive-image[data-enhanced="true"] {
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity .8s cubic-bezier(.22, 1, .36, 1), transform 1.2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.progressive-image[data-enhanced="true"][data-loaded="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.media-badge {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgb(0 0 0 / .55);
+  color: #fff;
+  font-size: 13px;
+  backdrop-filter: blur(6px);
+}
+
+/* Capture counter. */
+.capture {
+  position: relative;
+}
+
+.capture-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.capture-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.capture[data-state="capturing"] .capture-dot {
+  animation: capture-pulse 1.6s ease-out infinite;
+}
+
+.capture[data-state="overnight"] .capture-dot {
+  opacity: .5;
+}
+
+@keyframes capture-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent); }
+  100% { box-shadow: 0 0 0 10px transparent; }
+}
+
+.capture-value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+/* The info button rides with the unit, so it wraps with it instead of dropping below. */
+.capture-unit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: color-mix(in srgb, currentColor 75%, transparent);
+  font-size: 15px;
+}
+
+.capture-next {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: .8;
+}
+
+.odometer {
+  display: inline-flex;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.odo-sep {
+  margin: 0 .06em 0 .02em;
+}
+
+.capture-band .odo-sep {
+  margin: 0 -.1em;
+}
+
+.odo-digit {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+}
+
+.odo-digit > span {
+  display: block;
+  width: 1ch;
+  word-break: break-all;
+  line-height: 1em;
+  transform: translateY(calc(var(--d) * -1em));
+  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+}
+
+.capture-info {
+  position: relative;
+  display: inline-flex;
+}
+
+.capture-info-button {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  opacity: .7;
+}
+
+.capture-info-button:hover, .capture-info-button:focus-visible {
+  opacity: 1;
+}
+
+.capture-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  z-index: 20;
+  width: min(320px, 80vw);
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #101418;
+  color: #eef1f3;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+  box-shadow: 0 18px 40px -12px rgb(0 0 0 / .5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 6px);
+  transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+
+.capture-info:hover .capture-tooltip, .capture-info:focus-within .capture-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* Company video. */
+.source-video {
+  margin: 0;
+}
+
+.video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-media, 16px);
+  background: #05080c;
+}
+
+.video-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  border: 0;
+  background: linear-gradient(180deg, transparent 40%, rgb(0 0 0 / .45));
+  color: #fff;
+}
+
+.video-play-icon {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: var(--video-accent, #bff400);
+  color: var(--video-accent-ink, #054648);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--video-accent, #bff400) 50%, transparent);
+  animation: play-ring 2.4s ease-out infinite;
+  transition: transform .3s ease;
+}
+
+.video-play:hover .video-play-icon {
+  transform: scale(1.06);
+}
+
+.video-play-label {
+  font-size: 16px;
+  font-weight: 600;
+  text-shadow: 0 2px 12px rgb(0 0 0 / .5);
+}
+
+@keyframes play-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--video-accent, #bff400) 55%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 22px transparent; }
+}
+
+.video-error {
+  position: absolute;
+  inset: auto 16px 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgb(0 0 0 / .75);
+  color: #fff;
+  font-size: 15px;
+}
+
+.video-error a {
+  text-decoration: underline;
+}
+
+.source-video figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: .75;
+}
+
+/* Brief form: structure only; each concept supplies the look. */
+.brief-form {
+  display: grid;
+  gap: 20px;
+}
+
+.brief-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.brief-field {
+  display: grid;
+  gap: 8px;
+}
+
+.brief-field > span, .brief-services legend {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.brief-field input, .brief-field select, .brief-field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--form-line, #cfd6d2);
+  border-radius: var(--radius-input, 8px);
+  background: var(--form-bg, #fff);
+  font-size: 16px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.brief-field textarea {
+  resize: vertical;
+}
+
+.brief-field input:focus, .brief-field select:focus, .brief-field textarea:focus {
+  outline: none;
+  border-color: var(--form-focus, #054648);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--form-focus, #054648) 18%, transparent);
+}
+
+.brief-services {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.brief-services legend {
+  margin-bottom: 10px;
+}
+
+.brief-services > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.brief-services button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--form-line, #cfd6d2);
+  border-radius: var(--radius-chip, 999px);
+  background: transparent;
+  font-size: 14px;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.brief-services button[aria-pressed="true"] {
+  border-color: var(--form-focus, #054648);
+  background: var(--form-focus, #054648);
+  color: var(--form-focus-ink, #fff);
+}
+
+.brief-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 28px;
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.brief-note {
+  font-size: 14px;
+  opacity: .7;
+}
+
+/* Lightbox. */
+.lightbox {
+  width: min(1200px, 94vw);
+  max-width: none;
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.lightbox::backdrop {
+  background: rgb(5 8 12 / .88);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox figure {
+  margin: 0;
+}
+
+.lightbox img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #000;
+}
+
+.lightbox figcaption {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  color: #eef1f3;
+  font-size: 15px;
+}
+
+.lightbox button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgb(255 255 255 / .3);
+  border-radius: 50%;
+  background: rgb(0 0 0 / .5);
+  color: #fff;
+}
+
+.lightbox-close {
+  top: -60px;
+  right: 0;
+}
+
+.lightbox-prev {
+  top: 45%;
+  left: -64px;
+}
+
+.lightbox-next {
+  top: 45%;
+  right: -64px;
+}
+
+/* Back to top with scroll-progress ring. */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--btt-bg, #054648);
+  color: var(--btt-ink, #fff);
+  box-shadow: 0 14px 30px -10px rgb(0 0 0 / .45);
+  opacity: 0;
+  transform: translateY(16px) scale(.9);
+  pointer-events: none;
+  transition: opacity .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.back-to-top.is-visible:hover {
+  transform: translateY(-3px);
+}
+
+.back-to-top svg:first-child {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-track, .ring-progress {
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.ring-track {
+  stroke: color-mix(in srgb, var(--btt-ink, #fff) 20%, transparent);
+}
+
+.ring-progress {
+  stroke: var(--btt-ring, #bff400);
+  stroke-linecap: round;
+}
+
+@media (max-width: 767px) {
+  /* Anchor the tooltip to the whole counter so it never runs off the left edge. */
+  .capture-value {
+    position: relative;
+  }
+
+  .capture-info {
+    position: static;
+  }
+
+  .capture-tooltip, .capture-info:hover .capture-tooltip, .capture-info:focus-within .capture-tooltip {
+    left: 0;
+    transform: none;
+  }
+
+  .brief-row {
+    grid-template-columns: 1fr;
+  }
+
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .lightbox-prev, .lightbox-next {
+    top: auto;
+    bottom: -64px;
+  }
+
+  .lightbox-prev {
+    left: 0;
+  }
+
+  .lightbox-next {
+    right: 0;
+  }
+}

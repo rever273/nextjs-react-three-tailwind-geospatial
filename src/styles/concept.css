@@ -1,0 +1,489 @@
+/* Additions for the single-concept Corvane site: banner, wordmark, stock video, hours and map. */
+
+.concept-banner {
+  grid-template-columns: auto 1fr;
+  min-height: 40px;
+  padding: 2px 24px;
+  border-bottom: 1px solid rgb(255 255 255 / .06);
+  background: #08090b;
+}
+
+.concept-banner .demo-info {
+  min-height: 30px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.concept-banner-text {
+  justify-self: end;
+  color: #9aa0a9;
+  font-size: 13px;
+}
+
+.concept-banner-text strong {
+  color: #e7e9ec;
+  font-weight: 600;
+}
+
+/* Wordmark sizes follow the old logo image rules. */
+.brand .wordmark {
+  width: 124px;
+  height: auto;
+  color: #f2f3f4;
+  transition: width .3s ease;
+}
+
+.site-header[data-scrolled="true"] .brand .wordmark {
+  width: 108px;
+}
+
+.t-footer-brand .wordmark {
+  width: 190px;
+  height: auto;
+  margin-bottom: 18px;
+  color: #f2f3f4;
+}
+
+/* Stock video. */
+.video-frame .media-badge {
+  top: 12px;
+  right: auto;
+  bottom: auto;
+  left: 12px;
+  font-size: 12px;
+}
+
+.video-toggle {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(255 255 255 / .3);
+  border-radius: 50%;
+  background: rgb(0 0 0 / .5);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  transition: background .2s ease;
+}
+
+.video-toggle:hover {
+  background: var(--red, #e23b2e);
+}
+
+.t-about-video .video-frame {
+  border-radius: 0;
+}
+
+/* The red years plate covers the lower corner. */
+.t-about-video .video-toggle {
+  top: 12px;
+  bottom: auto;
+}
+
+/* Footer hours and map. */
+.t-hours {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.t-hours div {
+  display: grid;
+  gap: 2px;
+}
+
+.t-hours dt {
+  color: #fff;
+  font-weight: 600;
+}
+
+.t-hours dd {
+  margin: 0;
+}
+
+.t-footer-grid .t-hours-note {
+  margin-top: 12px;
+  margin-bottom: 0;
+  color: #9aa0a9;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.t-map {
+  position: relative;
+  height: 220px;
+  margin-top: 48px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / .1);
+  background: #15181c;
+}
+
+.t-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(.85) invert(.92) hue-rotate(180deg) contrast(.9);
+}
+
+.t-map-open {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  background: var(--red, #e23b2e);
+  color: #fff;
+  font-family: var(--font-barlow-semi), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgb(0 0 0 / .4);
+}
+
+.t-map-open:hover {
+  background: var(--red-deep, #b92b20);
+}
+
+.demo-about small {
+  display: block;
+  margin-top: 8px;
+  color: #9aa0a9;
+  font-size: 12px;
+}
+
+/* People: a full-width field band under the profile and sectors. */
+.t-crew {
+  position: relative;
+  grid-column: 1 / -1;
+  height: clamp(220px, 26vw, 340px);
+  margin: 0;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.t-crew .media {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+}
+
+.t-crew .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.75) contrast(1.05);
+}
+
+.t-crew::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(12 14 17 / .92) 0%, rgb(12 14 17 / .55) 45%, rgb(12 14 17 / .1) 100%);
+}
+
+.t-crew figcaption {
+  position: absolute;
+  left: clamp(24px, 4vw, 56px);
+  bottom: clamp(24px, 4vw, 48px);
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  max-width: 520px;
+  color: #fff;
+}
+
+.t-crew figcaption .t-mono {
+  color: var(--red);
+  font-size: 13px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.t-crew figcaption strong {
+  font-family: var(--font-barlow), sans-serif;
+  font-size: clamp(26px, 3.2vw, 40px);
+  font-weight: 800;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+/* Gallery: the strip sits on the content grid, three stills across; controls run underneath. */
+.t-strip-wrap {
+  position: relative;
+}
+
+.t-gallery .t-strip {
+  grid-auto-columns: calc((100% - 40px) / 3);
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.t-strip-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.t-strip-progress {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  overflow: hidden;
+  background: rgb(255 255 255 / .12);
+}
+
+.t-strip-progress i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--red);
+  transition: left .15s linear;
+}
+
+.t-strip-arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.t-strip-arrows button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgb(255 255 255 / .25);
+  background: transparent;
+  color: #fff;
+  transition: background .2s ease, border-color .2s ease, opacity .2s ease;
+}
+
+.t-strip-arrows button:hover:not(:disabled) {
+  border-color: var(--red);
+  background: var(--red);
+}
+
+.t-strip-arrows button:disabled {
+  opacity: .3;
+  cursor: default;
+}
+
+@media (max-width: 1100px) {
+  .t-gallery .t-strip {
+    grid-auto-columns: calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 767px) {
+  .t-gallery .t-strip {
+    grid-auto-columns: 86%;
+  }
+
+  .t-strip-arrows button {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* Lightbox: Tailwind's reset removes the dialog's auto margins, so centre it explicitly. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+}
+
+.lightbox[open] {
+  display: block;
+}
+
+.lightbox img {
+  border-radius: 0;
+}
+
+.lightbox .lightbox-close {
+  top: -60px;
+  right: 0;
+  z-index: 2;
+}
+
+.lightbox button:hover {
+  border-color: #e23b2e;
+  background: #e23b2e;
+}
+
+@media (max-height: 700px) {
+  .lightbox .lightbox-close {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .concept-banner {
+    grid-template-columns: auto 1fr;
+    min-height: 40px;
+    padding: 2px 12px;
+  }
+
+  .concept-banner .demo-info span {
+    display: inline;
+  }
+
+  .concept-banner .demo-info {
+    width: auto;
+    padding: 0 10px;
+  }
+
+  .concept-banner-text {
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .brand .wordmark, .site-header[data-scrolled="true"] .brand .wordmark {
+    width: 96px;
+  }
+
+  .t-map {
+    height: 160px;
+    margin-top: 28px;
+  }
+
+  .t-map-open {
+    top: 8px;
+    right: 8px;
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .t-hours {
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .t-hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgb(255 255 255 / .08);
+  }
+
+  .t-hours dd {
+    text-align: right;
+  }
+
+  .t-footer-grid .t-hours-note {
+    margin-top: 8px;
+    font-size: 11px;
+  }
+
+
+  .lightbox .lightbox-close {
+    top: -56px;
+  }
+}
+
+@media (max-width: 420px) {
+  .concept-banner-text {
+    font-size: 11px;
+  }
+
+  .t-compare-label-extra {
+    display: none;
+  }
+}
+
+.concept-banner-text a {
+  text-decoration: underline;
+  text-decoration-color: var(--red, #e23b2e);
+  text-underline-offset: 3px;
+}
+
+/* Fit the still without letterbox bars. */
+.lightbox figure {
+  display: grid;
+  justify-items: center;
+}
+
+.lightbox img {
+  width: auto;
+  background: transparent;
+}
+
+.lightbox figcaption {
+  width: 100%;
+}
+
+/* Illustrated total station beside the pipeline heading; its red accents match the theme. */
+.t-instrument-photo {
+  top: 5%;
+  right: 5%;
+  width: min(230px, 19vw);
+  opacity: .2;
+  filter: drop-shadow(0 24px 30px rgb(18 20 24 / .16));
+}
+
+@media (max-width: 900px) {
+  .t-instrument-photo {
+    width: 150px;
+    opacity: .35;
+  }
+}
+
+@media (max-width: 767px) {
+  .t-instrument-photo {
+    top: 24px;
+    right: 12px;
+    width: 96px;
+    opacity: .3;
+  }
+
+  .t-crew figcaption .t-mono {
+    font-size: 11px;
+    letter-spacing: .1em;
+  }
+}
+
+/* Header logo: no black plate, dark ink on the light header. The footer keeps the light version. */
+.header-technology .brand-plate {
+  padding: 4px 0;
+  background: transparent;
+}
+
+.header-technology .brand .wordmark {
+  color: var(--ink, #121418);
+}
+
+@media (max-width: 767px) {
+  .header-technology .brand-plate {
+    padding: 2px 0;
+  }
+}
+
+/* Without the plate the mark needs a little more size to hold its own. */
+.header-technology .brand .wordmark {
+  width: 148px;
+}
+
+.header-technology[data-scrolled="true"] .brand .wordmark {
+  width: 132px;
+}
+
+@media (max-width: 767px) {
+  .header-technology .brand .wordmark, .header-technology[data-scrolled="true"] .brand .wordmark {
+    width: 112px;
+  }
+}
