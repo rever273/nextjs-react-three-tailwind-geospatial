@@ -4,6 +4,12 @@ A portfolio website concept for **Corvane Geospatial**, a fictional surveying an
 
 Built with Next.js (App Router), React, TypeScript, Tailwind CSS, Three.js / React Three Fiber and Motion.
 
+**Live demo (temporary):** https://corvane-geospatial-demo.vercel.app/
+
+![Corvane Geospatial — screenshot 1](public/assets/screenshot1.png)
+
+![Corvane Geospatial — screenshot 2](public/assets/screenshot2.png)
+
 ## What it shows
 
 - A procedural interchange scene (terrain, carriageways, overpass, ramp, supports). It is generated in code and sampled into a point cloud with `THREE.Points`, with RGB, Elevation and synthetic Intensity colour modes, plus pause, reset and zoom.
@@ -31,4 +37,4 @@ Regenerate the scene stills: `npx tsx scripts/generate-fallback.ts` (viewer fall
 
 ## Deployment
 
-This branch (`corvane-geospatial`) is deployed as its own Vercel project, separate from the original three-concept demo on `main`. See `docs/assets.md` for media licences before reusing anything.
+Deployed on Vercel. See `docs/assets.md` for media licences before reusing anything.
